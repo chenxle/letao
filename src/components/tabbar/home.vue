@@ -9,11 +9,11 @@
 
         <!-- 8宫格 -->
         <van-grid :column-num="4" :border="false">
-      <van-grid-item >
+      <van-grid-item to="/commodity">
         <img src="../../assets/images/menu10.png" alt>
         <div>数码电器</div>
       </van-grid-item>
-      <van-grid-item to="/newslist/100">
+      <van-grid-item to="/newslist">
         <img src="../../assets/images/menu19.png" alt>
         <div>乐淘头条</div>
       </van-grid-item>

@@ -1,12 +1,20 @@
 <template>
     <div class="app_container">
         <!-- 头部 -->
-        <van-sticky>
+        <van-sticky v-show="isShow">
             <div class="header">
                 <img src="./assets/images/logo.png" alt="">
                 <Search placeholder="请输入搜索关键字"></Search>
             </div>
         </van-sticky>
+
+        <van-nav-bar
+            :title="title"
+            left-text=""
+            left-arrow
+            @click-left="onClickLeft"
+            v-show="!isShow"
+        />
 
         <!-- 通过底部选择显示视图(默认为主页home组件) -->
         <router-view></router-view>
@@ -22,18 +30,42 @@
 </template>
 
 <script>
-import {Search,Tabbar,TabbarItem,Sticky } from 'vant';
+import {Search,Tabbar,TabbarItem,Sticky,NavBar } from 'vant';
 export default {
     data(){
         return {
-            active:0  //默认选中主页home
+            active:0,  //默认选中主页home,
+            isShow:false,
+            title:''
         }
     },
     components: {
         Search,
         "van-tabbar":Tabbar,
         "van-tabbar-item":TabbarItem,
-        'van-sticky':Sticky
+        'van-sticky':Sticky,
+        "van-nav-bar":NavBar,
+    },
+    methods:{
+        getPath(){
+            if(this.$route.path != '/home'){
+                this.isShow = false;
+            }else {
+                this.isShow = true;
+            }
+        },
+        onClickLeft(){
+            this.$router.go(-1);
+        },
+        topData(options){
+            this.title = options.title;
+        }
+    },
+    watch: {
+        $route:'getPath'
+    },
+    created(){
+        this.getPath();
     }
 }
 </script>
