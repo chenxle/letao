@@ -9,6 +9,8 @@ import user from '@/components/tabbar/user.vue';
 import newslist from '@/components/news/newslist.vue';
 import commoditylist from '@/components/commodity/commoditylist.vue';
 import goodsdetail from '@/components/commodity/goodsdetail.vue';
+import newsdetail from "@/components/news/newsdetail.vue";
+import photo from '@/components/photo/photo.vue';
 
 const router = new VueRouter({
     routes:[
@@ -18,7 +20,9 @@ const router = new VueRouter({
         {path:"/user",component:user},
         {path:"/newslist",component:newslist,props:true},
         {path:'/commodity',component:commoditylist},
-        {path:'/goodsdetail/:id',component:goodsdetail,props:true}
+        {path:'/goodsdetail/:id',component:goodsdetail,props:true},
+        {path:'/newsdetail/:id',component:newsdetail,props:true},
+        {path:'/photo',component:photo},
       ]
 })
 

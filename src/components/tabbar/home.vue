@@ -17,7 +17,7 @@
         <img src="../../assets/images/menu19.png" alt>
         <div>乐淘头条</div>
       </van-grid-item>
-      <van-grid-item >
+      <van-grid-item to="/photo">
         <img src="../../assets/images/menu18.png" alt>
         <div>美图欣赏</div>
       </van-grid-item>
@@ -48,7 +48,7 @@
             为你推荐
         </van-divider>
         <div class="recommend-commodity">
-            <div class="item" v-for="item in recommendData" :key="item.id">
+            <router-link tag="div" class="item" v-for="item in recommendData" :key="item.id" :to="'/goodsdetail/'+item.id">
                 <img v-lazy="item.img_url" alt="">
                 <div class="text">
                     <div class="title">{{item.title}}</div>
@@ -57,7 +57,7 @@
                         <span class="buy">{{item.buy}}人已购买</span>
                     </div>
                 </div>
-            </div>
+            </router-link>
         </div>
     </div>
 

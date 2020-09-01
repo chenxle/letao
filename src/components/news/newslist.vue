@@ -4,21 +4,21 @@
         <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
             <!-- 新闻列表 -->
             <div class="newslist">
-                <div class="item" v-for="item in newslistData" :key="item.id">
+                <router-link class="item" v-for="item in newslistData" :key="item.id" :to="'/newsdetail/'+item.id">
                     <div class="img_container">
                         <img v-lazy="item.img_url" alt="">
                     </div>
                     <div class="text">
-                        <h3 class="title">{{item.title}}</h3>
+                        <h3 class="title overflow_ellipsis">{{item.title}}</h3>
                         <div class="info">
                             <span>发布时间：{{item.add_time | dateFormat('YYYY-MM-DD HH:mm')}}</span>
                             <span>点击：{{item.click}}次</span>
                         </div>
                     </div>
-                </div>
+                </router-link>
             </div>
             <!-- 加载更多 -->
-            <van-button type="danger" size="large" @click="nextPage">加载更多</van-button>
+            <van-button type="danger" size="large" :loading="hasLoading" loading-text="加载中..." @click="nextPage" v-show="isReveal">加载更多</van-button>
         </van-pull-refresh>
 
     </div>
@@ -37,19 +37,23 @@ import { getNewslistData } from '@/api/index.js';
                 page:1,
                 pagesize:10,
                 isEmpty:false,
+                hasLoading:false,
+                isReveal:true
             };
         },
         components:{
             "van-pull-refresh":PullRefresh,
             "van-nav-bar":NavBar,
-            'van-button':Button,
+            'van-button':Button
         },
         methods: {
             onRefresh() {
+                this.isReveal = false;
                 this.newslistData = [];
                 this.page = 1;
                 this.isEmpty = false;
                 this.getNewslist();
+                this.isReveal = true;
                 setTimeout(_=>{
                     this.isLoading = false;
                     Toast('刷新成功');
@@ -69,18 +73,23 @@ import { getNewslistData } from '@/api/index.js';
                     Toast('已经没有更多数据了');
                     return;
                 }
+                this.hasLoading = true;
                 this.page++;
                 this.getNewslist();
+                this.hasLoading = false;
             }
         },
         created(){
+            this.isReveal = false;
             this.getNewslist();
+            this.isReveal = true;
             this.$parent.topData({title:'新闻列表'});
         }
     }
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/common.scss";
 .newslist_container {
     background-color: rgb(238, 238, 238);
     .newslist {
@@ -105,12 +114,12 @@ import { getNewslistData } from '@/api/index.js';
                     font-size: 14px;
                     margin: 14px 0px;
 
-                    // 限制两行文本，超出显示省略号
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    display: -webkit-box;
-                    -webkit-box-orient: vertical;
-                    -webkit-line-clamp: 2;
+                    // // 限制两行文本，超出显示省略号
+                    // overflow: hidden;
+                    // text-overflow: ellipsis;
+                    // display: -webkit-box;
+                    // -webkit-box-orient: vertical;
+                    // -webkit-line-clamp: 2;
                 }
                 .info {
                     display: flex;

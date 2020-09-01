@@ -21,7 +21,7 @@
                 </div>
             </div>
             <!-- 加载更多 -->
-            <van-button type="danger" @click="nextPage">加载更多</van-button>
+            <van-button type="danger" :loading="hasLoading" loading-text="加载中..." @click="nextPage">加载更多</van-button>
         </div>
     </div>
 </template>
@@ -35,6 +35,7 @@ export default {
             componentsData: [],
             currentPage: 1,
             all:true,
+            hasLoading:false,
         };
     },
     components: {
@@ -57,7 +58,9 @@ export default {
                 Toast("已获取所有商品");
                 return;
             }
+            this.hasLoading = true;
             this.getComponents(this.currentPage+=1);
+            this.hasLoading = false;
         },
         //跳转详情页
         goodsdetail(id){
