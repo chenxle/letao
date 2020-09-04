@@ -20,7 +20,7 @@
             placeholder="请有爱的评论"
             show-word-limit
         />
-        <van-button type="info" block @click="comment">评论</van-button>
+        <van-button type="info" class="button" block @click="comment">评论</van-button>
         <!-- 评论信息 -->
         <div class="list">
             <div class="item" v-for="item in commentsData" :key="item.id">
@@ -136,6 +136,10 @@ export default {
                 background-color: #eee;
             }
         }
+    }
+    .button {
+        margin-top: 10px;
+        margin-bottom: 5px;
     }
 }
 </style>

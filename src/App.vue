@@ -25,7 +25,7 @@
         <!-- 底部 -->
         <van-tabbar v-model="active" v-show="condition">
             <van-tabbar-item to="/home" icon="wap-home-o">首页</van-tabbar-item>
-            <van-tabbar-item to="/mycar" icon="cart-o" badge="20">购物车</van-tabbar-item>
+            <van-tabbar-item to="/mycar" icon="cart-o" :badge="$store.getters.getTotal">购物车</van-tabbar-item>
             <van-tabbar-item to="/user" icon="user-o">我的乐淘</van-tabbar-item>
         </van-tabbar>
 
@@ -40,7 +40,7 @@ export default {
             active:0,  //默认选中主页home,
             isShow:false,
             title:'',
-            condition:true
+            condition:true,
         }
     },
     components: {
@@ -81,7 +81,7 @@ export default {
         },
         setCondition(){
             this.condition = false;
-        }
+        },
     },
     watch: {
         $route:'getPath'
@@ -98,6 +98,7 @@ export default {
     max-width: 750px;
     margin: auto;
     padding-bottom: 50px;
+    height: 90vh;
     background-color: #eee;
     .header {
         display: flex;

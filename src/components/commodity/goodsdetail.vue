@@ -45,10 +45,11 @@
         <!-- 购物车导航 -->
         <van-goods-action>
             <van-goods-action-icon icon="chat-o" text="客服" />
-            <van-goods-action-icon icon="cart-o" text="购物车" badge="5" />
+            <van-goods-action-icon to="/mycar" icon="cart-o" text="购物车" :badge="$store.getters.getTotal" />
             <van-goods-action-button
                 type="warning"
                 text="加入购物车"
+                @click="addGoodsToCar"
             />
             <van-goods-action-button
                 type="danger"
@@ -69,7 +70,7 @@ import { getGoodsDetailLunanBoData,getgoodsinfoData } from '@/api/index.js';
             return {
                 goodsdetailLuanBoData:[],
                 goodsinfoData:{},
-                value: 1
+                value: 1,
             }
         },
         components:{
@@ -89,6 +90,15 @@ import { getGoodsDetailLunanBoData,getgoodsinfoData } from '@/api/index.js';
             async getgoodsinfo(id){
                 var {message} = await getgoodsinfoData(id);
                 this.goodsinfoData = message;
+            },
+            addGoodsToCar(){
+                var goods = {
+                    id:this.goodsinfoData.id,
+                    number:this.value,
+                    price:this.goodsinfoData.sell_price,
+                    selected:true
+                };
+                this.$store.commit('addCar',goods);
             }
         },
         created(){

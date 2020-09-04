@@ -36,3 +36,22 @@ export async function getCommentsData(artid,pageindex = 1){
 export async function postcomment(id){
     return await instance.post(`postcomment/${id}`);
 }
+
+//获取美图欣赏的分类数据
+export async function getCategoryData(){
+    return await instance.get(`getcategory`);
+}
+
+//获取美图欣赏指定分类数据
+export async function getCatelistData(id){
+    return await instance.get(`getCatelist/${id}`);
+}
+
+export async function getPhotoThumbData(id){
+    return await instance.get(`getthumbimages/${id}`);
+}
+
+// 获取购物车商品的信息
+export  async  function getCarData(ids){
+    return  await instance.get(`/getshopcarlist/${ids}`);
+}

@@ -11,6 +11,8 @@ import commoditylist from '@/components/commodity/commoditylist.vue';
 import goodsdetail from '@/components/commodity/goodsdetail.vue';
 import newsdetail from "@/components/news/newsdetail.vue";
 import photo from '@/components/photo/photo.vue';
+import site from '@/components/users/siteManage.vue';
+import addSite from '@/components/users/addSite.vue';
 
 const router = new VueRouter({
     routes:[
@@ -22,7 +24,9 @@ const router = new VueRouter({
         {path:'/commodity',component:commoditylist},
         {path:'/goodsdetail/:id',component:goodsdetail,props:true},
         {path:'/newsdetail/:id',component:newsdetail,props:true},
-        {path:'/photo',component:photo},
+        {path:'/photo',component:photo,props:true},
+        {path:'/site',component:site,props:true},
+        {path:'/addSite',component:addSite}
       ]
 })
 

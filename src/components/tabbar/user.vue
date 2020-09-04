@@ -22,12 +22,12 @@
                 </div>
             </div>
             <!-- 地址管理 -->
-            <div class="item">
+            <router-link class="item" to="/site" tag="div">
                 <div>
                     <span>地址管理</span>
                     <van-icon name="arrow" size="16px" color="#777" />
                 </div>
-            </div>
+            </router-link>
 
         </div>
         <br>

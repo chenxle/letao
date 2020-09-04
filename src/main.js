@@ -9,6 +9,7 @@ Vue.use(Lazyload, {
 });
 
 import '@/util/filter.js';
+import store from '@/store/carStore.js';
 
 //自定义变量在Vue.prototype上
 Vue.prototype.$api = axios;
@@ -17,5 +18,6 @@ Vue.prototype.$toast = Toast;
 Vue.config.productionTip = false
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
