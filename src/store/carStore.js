@@ -7,10 +7,17 @@ var carData = JSON.parse( localStorage.getItem('carData') || '[]' );
 const store = new Vuex.Store({
     //存放数据
     state: {
-        carData:carData
+        //购物车数据
+        carData:carData,
+        //是否提示在加载中
+        isPending:false
     },
     //存放修改的方法
     mutations: {
+        //修改pending状态
+        changeIsPending(state,bool){
+            state.isPending = bool;
+        },
         //添加到购物车(goods：添加的商品)
         addCar(state,goods){
             var index;

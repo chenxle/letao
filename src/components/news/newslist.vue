@@ -29,6 +29,7 @@ import { Toast,PullRefresh,NavBar,Button } from 'vant';
 import { getNewslistData } from '@/api/index.js';
 
     export default {
+        name:'newslist-component',
         data() {
             return {
                 count: 0,
@@ -60,13 +61,16 @@ import { getNewslistData } from '@/api/index.js';
                 },700)
             },
             async getNewslist(){
+                this.isReveal = false;
                 var res = await getNewslistData(this.page,this.pagesize);
                 if(res.message.length == 0){
                     Toast('加载完毕');
                     this.isEmpty = true;
+                    this.isReveal = true;
                     return;
                 }
                 this.newslistData = this.newslistData.concat(res.message);
+                this.isReveal = true;
             },
             nextPage(){
                 if(this.isEmpty){
@@ -80,10 +84,17 @@ import { getNewslistData } from '@/api/index.js';
             }
         },
         created(){
-            this.isReveal = false;
             this.getNewslist();
-            this.isReveal = true;
             this.$parent.topData({title:'新闻列表'});
+        },
+        //用于在进入时，缓存传态下，不缓存的数据
+        activated:function(){
+            this.$parent.topData({title:'新闻列表'});
+            console.log('activated');
+        },
+        //用于在退出时，缓存传态下，不缓存的数据
+        deactivated:function(){
+            console.log('deactivated');
         }
     }
 </script>
@@ -92,6 +103,7 @@ import { getNewslistData } from '@/api/index.js';
 @import "@/assets/scss/common.scss";
 .newslist_container {
     background-color: rgb(238, 238, 238);
+    margin-bottom: 50px;
     .newslist {
         .item {
             display: flex;

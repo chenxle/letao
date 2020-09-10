@@ -19,8 +19,12 @@
             />
         </van-sticky>
 
-        <!-- 通过底部选择显示视图(默认为主页home组件) -->
-        <router-view></router-view>
+        <!-- keep-slive 开启缓存 -->
+        <!-- include：缓存的组件，不指定则缓存全部组件 用法：组件名 使用,分割 -->
+        <keep-alive include="newslist-component,home-component">
+            <!-- 通过底部选择显示视图(默认为主页home组件) -->
+            <router-view></router-view>
+        </keep-alive>
 
         <!-- 底部 -->
         <van-tabbar v-model="active" v-show="condition">
@@ -33,6 +37,8 @@
 </template>
 
 <script>
+// 导入获取vuex中的state的辅助函数
+import { mapState } from "vuex";
 import {Search,Tabbar,TabbarItem,Sticky,NavBar } from 'vant';
 export default {
     data(){
@@ -84,7 +90,26 @@ export default {
         },
     },
     watch: {
-        $route:'getPath'
+        $route:'getPath',
+        //监听isPending，true开启loading，false就关闭
+        'isPending':function(isPending){
+            isPending
+            ? this.$toast.loading({
+                message:'loading...',
+                forbidClick:true,
+                duration:0
+            })
+            : this.$toast.clear();
+        }
+    },
+    computed:{
+        /*
+        isPending:function(){
+            return this.$store.state.isPending
+        }
+        等价于
+        */
+        ...mapState(['isPending'])
     },
     created(){
         this.getPath();

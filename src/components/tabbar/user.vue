@@ -22,7 +22,7 @@
                 </div>
             </div>
             <!-- 地址管理 -->
-            <router-link class="item" to="/site" tag="div">
+            <router-link class="item" to="/addrManage" tag="div">
                 <div>
                     <span>地址管理</span>
                     <van-icon name="arrow" size="16px" color="#777" />
@@ -48,13 +48,14 @@
         </div>
 
         <!-- 底部 -->
-        <van-button size="large" class="out_login">退出登录</van-button>
+        <van-button size="large" class="out_login" @click="toLog">退出登录</van-button>
 
     </div>
 </template>
 
 <script>
-import { Icon,Button } from 'vant';
+import { Icon,Button,Dialog } from 'vant';
+import { isLogin } from '@/api/index.js';
 
     export default {
         data(){
@@ -67,11 +68,24 @@ import { Icon,Button } from 'vant';
             'van-button':Button
         },
         methods: {
+            //退出登录
+            toLog(){
+                Dialog.confirm({
+                    message: '确认退出登录吗?',
+                })
+                .then(() => {
+                    localStorage.removeItem('userInfo');
+                    localStorage.removeItem('token');
+                    this.$router.push('/login');
+                })
+                .catch(_=>{})
 
+            }
         },
         created(){
             this.$parent.topData({title:'个人中心'});
             this.$parent.setCondition();
+            isLogin();
         }
     }
 </script>

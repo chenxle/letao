@@ -69,7 +69,7 @@ import { Swipe,SwipeItem,Grid,GridItem,Divider } from 'vant';
 import { getLunBoData,getRecommendData } from '@/api/index.js';
 
 export default {
-    name:"HomeComponent",
+    name:"home-component",
     data(){
         return {
             lunboData:[],

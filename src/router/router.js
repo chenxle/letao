@@ -11,8 +11,11 @@ import commoditylist from '@/components/commodity/commoditylist.vue';
 import goodsdetail from '@/components/commodity/goodsdetail.vue';
 import newsdetail from "@/components/news/newsdetail.vue";
 import photo from '@/components/photo/photo.vue';
-import site from '@/components/users/siteManage.vue';
-import addSite from '@/components/users/addSite.vue';
+import site from '@/components/addr/addrManage.vue';
+import addSite from '@/components/addr/addAddr.vue';
+import editAddr from '@/components/addr/editAddr.vue';
+import login from '@/components/users/login.vue';
+import register from '@/components/users/register.vue';
 
 const router = new VueRouter({
     routes:[
@@ -25,8 +28,11 @@ const router = new VueRouter({
         {path:'/goodsdetail/:id',component:goodsdetail,props:true},
         {path:'/newsdetail/:id',component:newsdetail,props:true},
         {path:'/photo',component:photo,props:true},
-        {path:'/site',component:site,props:true},
-        {path:'/addSite',component:addSite}
+        {path:'/addrManage',component:site,props:true},
+        {path:'/addAddr',component:addSite},
+        {path:'/register',component:register},
+        {path:'/login',component:login},
+        {path:'/editAddr/:addrInfo',component:editAddr}
       ]
 })
 

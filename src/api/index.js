@@ -55,3 +55,44 @@ export async function getPhotoThumbData(id){
 export  async  function getCarData(ids){
     return  await instance.get(`/getshopcarlist/${ids}`);
 }
+
+//用户登录
+export async function userLogin(data){
+    return await instance.post(`/login`,data);
+}
+
+//验证用户是否登录
+export async function isLogin(){
+    var token = localStorage.getItem('token');
+    try{
+        await instance.post(`/checktoken?token=${token}`);
+    }catch(e){
+
+    }
+}
+
+//注册
+export async function userRegister(data){
+    return await instance.post('/register',data);
+}
+
+//获取用户的所有地址
+export async function getUserAddrData(userId){
+    return await instance.get(`/getaddress/${userId}?v=${Math.random()}`)
+    // return await instance.get(`/getaddress/${userId}`);
+}
+
+//添加地址
+export async function addAddr(userId,data){
+    return await instance.post(`addaddress/${userId}`,data);
+}
+
+//编辑地址
+export async function editAddr(addrId,data){
+    return await instance.post(`updateaddress/${addrId}`,data);
+}
+
+//删除地址
+export async function delAddr(addrId){
+    return await instance.post(`deladdress/${addrId}`);
+}
